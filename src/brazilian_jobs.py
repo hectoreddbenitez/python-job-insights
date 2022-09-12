@@ -9,7 +9,7 @@ def read_brazilian_file(path):
     Parameters
     ----------
     path : str
-        Full path to files
+        Full path to file
 
     Returns
     -------
