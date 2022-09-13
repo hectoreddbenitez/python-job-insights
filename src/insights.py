@@ -36,59 +36,39 @@ def get_unique_industries(path):
 
 
 def filter_by_industry(jobs, industry):
-    """Filters a list of jobs by industry
-
-    Parameters
-    ----------
-    jobs : list
-        List of jobs to be filtered
-    industry : str
-        Industry for the list filter
-
-    Returns
-    -------
-    list
-        List of jobs with provided industry
-    """
-    return []
+    chosen_jobs_by_industry = []
+    for job in jobs:
+        if job["industry"] == industry:
+            chosen_jobs_by_industry.append(job)
+    return chosen_jobs_by_industry
 
 
 def get_max_salary(path):
     salaries_list = []
-    jobs_list = read(path)
-    for job in jobs_list:
+    # jobs_list = read(path)
+    for job in read(path):
         salary = job["max_salary"]
         if salary.isnumeric():
-            int_salary = int(salary)
-            salaries_list.append(int_salary)
+            salaries_list.append(int(salary))
             salaries_list.sort()
     return salaries_list[-1]
 
 
 def get_min_salary(path):
-    """Get the minimum salary of all jobs
-
-    Must call `read`
-
-    Parameters
-    ----------
-    path : str
-        Must be passed to `read`
-
-    Returns
-    -------
-    int
-        The minimum salary paid out of all job opportunities
-    """
-    salaries_list = []
+    """refatoração, Ó que lindo!!"""
     jobs_list = read(path)
-    for job in jobs_list:
-        salary = job["min_salary"]
-        if salary.isdigit():
-            int_salary = int(salary)
-            salaries_list.append(int_salary)
-            salaries_list.sort()
-    return salaries_list[0]
+    salaries_list = [
+        int(job["min_salary"])
+        for job in jobs_list
+        if job["min_salary"].isdigit()
+    ]
+    """original"""
+    """ jobs_list = read(path)
+    # for job in jobs_list:
+    #     salary = job["min_salary"]
+    #     if salary.isdigit():
+    #         salaries_list.append(int(salary))"""
+    return min(salaries_list)
 
 
 def matches_salary_range(job, salary):
