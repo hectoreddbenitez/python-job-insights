@@ -2,31 +2,18 @@ from .jobs import read
 
 
 def get_unique_job_types(path):
-    """Checks all different job types and returns a list of them
-
-    Must call `read`
-
-    Parameters
-    ----------
-    path : str
-        Must be passed to `read`
-
-    Returns
-    -------
-    list
-        List of unique job types
-    """
     job_types = []
+    """ jobs_list = jobs.read(path)"""
     jobs_list = read(path)
     for job in jobs_list:
         type = job["job_type"]
         if job_types.count(type) == 0:
             job_types.append(type)
-
-    # job_types = [
-    #     job
-    #     for job in jobs_list if job_types.count(job["job_type"]) == 0
-    # ]
+    """qual é o erro nessa compreensão??
+     job_types = [
+         job
+         for job in jobs_list if job_types.count(job["job_type"]) == 0
+    ]"""
     return job_types
 
 
@@ -63,7 +50,14 @@ def get_unique_industries(path):
     list
         List of unique industries
     """
-    return []
+    industry_types = []
+    jobs_list = read(path)
+    for job in jobs_list:
+        type = job["industry"]
+        if len(type) != 0 and industry_types.count(type) == 0:
+            industry_types.append(type)
+
+    return industry_types
 
 
 def filter_by_industry(jobs, industry):
