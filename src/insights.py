@@ -1,3 +1,4 @@
+from codecs import ignore_errors
 from .jobs import read
 
 
@@ -77,25 +78,18 @@ def matches_salary_range(job, salary):
         if job["min_salary"] <= int(salary) <= job["max_salary"]:
             return True
         if job["min_salary"] > job["max_salary"]:
-            raise ValueError("não é assim não...")
+            raise ValueError("Errou!! inverte os valores...")
         return False
-    except BaseException as err:
-        raise err and ValueError
+    except BaseException:
+        raise BaseException and ValueError
 
 
 def filter_by_salary_range(jobs, salary):
-    """Filters a list of jobs by salary range
-
-    Parameters
-    ----------
-    jobs : list
-        The jobs to be filtered
-    salary : int
-        The salary to be used as filter
-
-    Returns
-    -------
-    list
-        Jobs whose salary range contains `salary`
-    """
-    return []
+    filtered_jobs = []
+    for job in jobs:
+        try:
+            if matches_salary_range(job, salary):
+                filtered_jobs.append(job)
+        except (ValueError, BaseException):
+            ignore_errors
+    return filtered_jobs
