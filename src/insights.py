@@ -1,5 +1,5 @@
 from codecs import ignore_errors
-from .jobs import read
+from jobs import read
 
 
 def get_unique_job_types(path):
