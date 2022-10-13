@@ -4,17 +4,12 @@ from jobs import read
 
 def get_unique_job_types(path):
     job_types = []
-    """ jobs_list = jobs.read(path)"""
     jobs_list = read(path)
     for job in jobs_list:
         type = job["job_type"]
         if job_types.count(type) == 0:
             job_types.append(type)
-    """qual é o erro nessa compreensão??
-     job_types = [
-         job
-         for job in jobs_list if job_types.count(job["job_type"]) == 0
-    ]"""
+
     return job_types
 
 
@@ -56,14 +51,14 @@ def get_max_salary(path):
 
 
 def get_min_salary(path):
-    """refatoração, Ó que"""
+    """refatoração, Ó que bonito"""
     jobs_list = read(path)
     salaries_list = [
         int(job["min_salary"])
         for job in jobs_list
         if job["min_salary"].isdigit()
     ]
-    """original"""
+    """original, não tão bonito, mas serve"""
     """ jobs_list = read(path)
     # for job in jobs_list:
     #     salary = job["min_salary"]
